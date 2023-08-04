@@ -1,0 +1,77 @@
+# GPUs
+CUDA_VISIBLE_DEVICES: "0"
+
+# hugging
+repo_name: "wav2vec2phone-large-xlsr-jp-jdrt5N-fw07"
+pretrained_name: 'jonatasgrosman/wav2vec2-large-xlsr-53-japanese'
+target: "phone" # target token
+sr: 16000
+format: 'wav'
+num_proc: 8
+
+# tokaniz
+unk_token: "[UNK]"
+pad_token: "pau"
+word_delimiter_token: "|"
+
+# training param
+lr: 5.0e-6
+TRAIN_ALL_WEIGHTS: false # すべてのパラメータを学習する(True) 最後の全結合層だけ学習する(Falce)
+num_train_epochs: 10
+per_device_train_batch_size: 16 # GPU1枚あたりのバッチサイズ(32の約数)
+torch.backends.cudnn.benchmark: true # 再現性がなくなるが高速化(True)
+
+# model
+attention_dropout: 0.1
+hidden_dropout: 0.1
+feat_proj_dropout: 0.1
+mask_time_prob: 0.05
+layerdrop: 0.1
+ctc_loss_reduction: "mean"
+diversity_loss_weight: 100
+ignore_mismatched_sizes: true
+
+# training arg
+push_to_hub: true
+save_total_limit: 2
+seed: 4
+
+#per_device_train_batch_size
+#per_device_eval_batch_size
+evaluation_strategy: "epoch"
+save_strategy: 'epoch'
+logging_steps: 10
+#eval_steps=10,
+
+
+lr_scheduler_type: 'linear'
+weight_decay: 1.0e-5
+warmup_steps: 1000 #warmup_steps, #この数分学習率増加してから減少させるスケジューラ
+
+group_by_length: false
+prediction_loss_only: false
+
+fp16: false
+fp16_full_eval: frue
+gradient_checkpointing: frue
+gradient_accumulation_steps: 4
+#gradient_accumulation_steps=32//per_device_train_batch_size
+
+
+#repos
+# base(Eng)
+# 'facebook/wav2vec2-base'
+# 'facebook/wav2vec2-base-960h' 'facebook/wav2vec2-large-960h-lv60'
+# 'facebook/wav2vec2-large-960h'
+
+# xlsr
+# 'facebook/wav2vec2-xls-r-300m' >> 'jonatasgrosman/wav2vec2-large-xlsr-53-japanese'
+# 'facebook/wav2vec2-xls-r-1b'
+# 'facebook/wav2vec2-xls-r-2b'
+# 'facebook/wav2vec2-large-xlsr-53'
+# "facebook/wav2vec2-xlsr-53-espeak-cv-ft"
+# "facebook/wav2vec2-lv-60-espeak-cv-ft"
+
+# spetial
+# 'facebook/wav2vec2-conformer-rope-large'
+# 'facebook/wav2vec2-large-robust'

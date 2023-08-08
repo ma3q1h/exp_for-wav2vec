@@ -1,0 +1,26 @@
+cython
+pandas
+datasets
+mecab-python3
+romkan
+transformers
+unidic
+matplotlib
+jiwer
+scikit-learn
+soundfile
+evaluate
+librosa
+japanize-matplotlib
+pyyaml
+
+# https://zenn.dev/syoyo/articles/4f6962247adfb6
+# https://pypi.org/project/pyopenjtalk-prebuilt/
+pyopenjtalk-prebuilt
+
+#NOTE depends on torch,transformers 
+accelerate==0.20.3
+#numpy==1.21.6
+
+#git-lfs
+#ffmpeg
